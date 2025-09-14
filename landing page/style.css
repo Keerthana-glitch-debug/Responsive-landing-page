@@ -1,0 +1,102 @@
+/* ---------- Base / Reset ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root{
+  --brand: #5b8cff;
+  --ink: #0f172a;
+  --ink-weak:#334155;
+  --paper:#ffffff;
+  --paper-weak:#f1f5f9;
+}
+html{ scroll-behavior:smooth; }
+body{ font-family: system-ui, Arial, sans-serif; color: var(--ink); background: var(--paper); }
+
+/* Keep content from hiding behind fixed nav */
+main { padding-top: 72px; }
+
+/* ---------- Navbar ---------- */
+.nav{
+  position: fixed; inset: 0 0 auto 0; /* top:0; left:0; right:0 */
+  height: 72px;
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 0 20px;
+  background: transparent;
+  transition: background .25s ease, box-shadow .25s ease;
+  z-index: 1000;
+}
+.nav.scrolled{
+  background: var(--paper);
+  box-shadow: 0 6px 20px rgba(2,8,23,0.08);
+}
+
+.logo{
+  font-weight: 800; text-decoration:none; font-size: 1.25rem;
+  color: white; /* default on hero */
+}
+.nav.scrolled .logo{ color: var(--ink); }
+
+/* Menu (desktop) */
+.nav-menu{ list-style:none; display:flex; gap: 20px; }
+.nav-link{
+  text-decoration:none; font-weight:600;
+  color: white; padding: 10px 6px; border-radius: 10px;
+  transition: color .2s, background .2s, transform .1s;
+}
+.nav-link:hover{ background: rgba(255,255,255,.15); transform: translateY(-1px); }
+
+/* Colors after scroll */
+.nav.scrolled .nav-link{ color: var(--ink); }
+.nav.scrolled .nav-link:hover{ background: var(--paper-weak); }
+
+/* ---------- Mobile nav ---------- */
+.nav-toggle{
+  display:none; font-size: 1.5rem; background:none; border:none; cursor:pointer;
+  line-height:1; padding:6px; border-radius:12px;
+}
+.nav-toggle:focus-visible{ outline: 3px solid var(--brand); }
+
+@media (max-width: 768px){
+  .nav-toggle{ display:block; color:white; }
+  .nav.scrolled .nav-toggle{ color: var(--ink); }
+
+  .nav-menu{
+    position: absolute; top: 72px; right: 12px;
+    background: var(--paper);
+    flex-direction: column; gap: 0; width: 220px;
+    border-radius: 16px; box-shadow: 0 12px 30px rgba(2,8,23,.15);
+    overflow: hidden; display: none;
+  }
+  .nav-menu.show{ display: block; }
+  .nav-link{ color: var(--ink); display:block; padding:14px 16px; }
+  .nav-link:hover{ background: var(--paper-weak); }
+}
+
+/* ---------- Sections ---------- */
+.hero{
+  min-height: calc(100vh - 72px);
+  display:grid; place-items:center; text-align:center; gap:16px;
+  color: white;
+  background: linear-gradient(120deg, #3b82f6, #06b6d4);
+  padding: 24px;
+}
+.hero h1{ font-size: clamp(2rem, 4vw + 1rem, 3.25rem); font-weight: 900; }
+.hero p{ font-size: 1.125rem; opacity: .95; }
+.cta{
+  margin-top: 8px; display:inline-block; text-decoration:none; font-weight:700;
+  background: white; color: var(--ink); padding: 12px 18px; border-radius: 14px;
+}
+
+.section{
+  min-height: 80vh; display:grid; place-items:center;
+  padding: 64px 24px; background: var(--paper-weak);
+}
+.section:nth-of-type(even){ background: #e2e8f0; }
+.section h2{ font-size: 2rem; margin-bottom: 8px; }
+.section p{ color: var(--ink-weak); max-width: 60ch; text-align:center; }
+
+.footer{
+  padding: 28px 16px; text-align:center; background: var(--paper);
+  color: var(--ink-weak);
+}
+
+/* ---------- Focus states for a11y ---------- */
+a:focus-visible{ outline: 3px solid var(--brand); outline-offset: 2px; border-radius: 10px; }
